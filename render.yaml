@@ -13,8 +13,8 @@ services:
     # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
     startCommand: "bundle exec rails server"
     releaseCommand: |
-      "bundle exec rails db:migrate"
-      "bundle exec rails db:seed"
+      bundle exec rails db:migrate
+      bundle exec rails runner "User.create(email: 'saminu3110c@gmail.com', password: '123456', admin: true) unless User.exists?(email: 'saminu3110c@gmail.com')"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
