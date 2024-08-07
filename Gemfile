@@ -8,6 +8,10 @@ gem "sprockets-rails"
 
 gem 'pg'
 
+gem 'net-pop', github: 'ruby/net-pop'
+
+gem 'net-protocol'
+
 gem "puma", ">= 5.0"
 
 gem "importmap-rails"
