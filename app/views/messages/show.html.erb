@@ -1,0 +1,14 @@
+<h1>Message</h1>
+
+<p>
+  <strong>Content:</strong>
+  <%= @message.content %>
+</p>
+
+<p>
+  <strong>Posted by:</strong>
+  <%= @message.user.email %>
+</p>
+
+<%= link_to 'Edit', edit_project_discussion_thread_message_path(@discussion_thread.project, @discussion_thread, @message) %> |
+<%= link_to 'Back to Thread', project_discussion_thread_path(@discussion_thread.project, @discussion_thread) %>

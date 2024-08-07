@@ -1,0 +1,23 @@
+<h1 align="center" class="col p-3 mb-2 bg-light text-dark">New Discussion Thread</h1>
+
+<%= form_with(model: [@project, @discussion_thread], local: true) do |form| %>
+  <% if @discussion_thread.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@discussion_thread.errors.count, "error") %> prohibited this discussion_thread from being saved:</h2>
+      <ul>
+        <% @discussion_thread.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <% form.label :title %>
+    <%= form.text_field :title, class:"form-control" %>
+  </div>
+
+  <div class="actions" align="right">
+    <%= form.submit class:"btn btn-secondary"%>
+  </div>
+<% end %>

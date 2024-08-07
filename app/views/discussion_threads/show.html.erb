@@ -1,0 +1,34 @@
+<h1 align = "center" class="col p-3 mb-2 bg-light text-dark"><%= @discussion_thread.title %></h1>
+
+<ul style="list-style-type:none";>
+  <% @discussion_thread.messages.each do |message| %>
+    
+      <% if message.user == current_user %>
+        <li align = "right">
+            <br/><i class="fas fa-user"></i>
+            <%= message.content %>
+            <%= link_to 'Edit', edit_project_discussion_thread_message_path(@project, @discussion_thread, message) %>
+            <%= link_to 'Delete', project_discussion_thread_message_path(@project, @discussion_thread, message), data: { turbo_method: :delete } %>
+        </li>
+      <% else %>
+          <br/><br/>
+          <li>
+            <i class="fas fa-user"></i>
+            <%= message.user.email %><br/>&nbsp;
+            <%= message.content %>
+          </li>
+      <% end %>
+    
+  <% end %>
+</ul>
+<%= form_with(model: [ @project, @discussion_thread, Message.new ], local: true) do |form| %>
+  <div class="field form-group">
+    <% form.label :content, style: "display: block" %>
+    <%= form.text_area :content, class:"form-control", placeholder:"Write Message" %>
+  </div>
+  <div class="actions" align = "right">
+    <%= form.submit 'Post Message', class:"btn btn-secondary" %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Project', project_path(@discussion_thread.project), class:"btn btn-primary" %>

@@ -1,0 +1,59 @@
+<div class="container">
+    <% if !user_signed_in? %>
+    <div align = "center">
+        <br/><br/><br/>
+        <%= image_tag("logo.png", alt: "Image description", class: "img-class", height: 300, width: 300) %>
+        <h1 class="font-weight-bold", style = "font-size: 5rem;">COLLABORATE</h1>
+        <p>A project management tool for developers</p><br/>
+        <%= link_to 'Sign Up', new_user_registration_path, class:"btn btn-secondary" %>&nbsp;&nbsp;
+        <%= link_to 'Sign In', new_user_session_path, class:"btn btn-secondary" %>
+    </div>
+    <% else %>
+        <h1 align = "center">Projects</h1><br/>
+       <div class="row">
+                
+            <div class="col" id="projects">
+                <div class="col p-3 mb-2 bg-light text-dark">
+                    <i class="fas fa-folder-open"></i> All Projects
+                </div>
+                <% @projects.each do |project| %>
+                    <div class="container mt-5">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                    <%= render project, class:"card-text" %>
+                                    <p>
+                                        <%= link_to "Show this project", project, class:"btn btn-primary" %>
+                                    </p>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+            <div class="col" id="projects">
+                <div class="col p-3 mb-2 bg-light text-dark">
+                    <i class="fas fa-user"></i>Created By Me
+                </div>
+                <% @projects.each do |project| %>
+                    <% if project.user == current_user %>
+                        <div class="container mt-5">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                        <%= render project, class:"card-text" %>
+                                        <p>
+                                            <%= link_to "Show this project", project, class:"btn btn-primary" %>
+                                        </p>
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>
+                <% end %>
+            </div>
+            <div class="col" id="projects">
+                    <div class="col p-3 mb-2 bg-light text-dark">
+                        <i class="fas fa-share-alt"></i>Shared With Me
+                    </div>
+            </div>
+       </div><br/>
+        <% link_to "New project", new_project_path, class:"btn btn-secondary" %>
+    <% end %>
+</div>

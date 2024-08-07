@@ -1,0 +1,55 @@
+<div class="jumbotron">
+  <%= render @project %>
+  <hr class="my-4">
+  <div class="mt-4">
+    <% if current_user.id == @project_user_id %>
+      <%= link_to "Edit Project", edit_project_path(@project), class: "btn btn-secondary" %>
+    <% end %>
+    <%= link_to "Back", projects_path, class: "btn btn-dark ml-2" %>
+
+    <br><br>
+    <% if current_user.id == @project_user_id %>
+      <%= button_to "Destroy this project", @project, method: :delete, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h2 class="mb-4">Attachments</h2>
+  <%= form_with(model: [ @project, Attachment.new ], local: true, class: "mb-4") do |form| %>
+    <div class="form-group">
+      <% form.label :file %>
+      <%= form.file_field :file, class: "form-control-file" %>
+    </div>
+    <%= form.submit 'Upload Attachment', class: "btn btn-primary" %>
+  <% end %>
+
+  <ul class="list-group mb-5">
+    <% @project.attachments.each do |attachment| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= link_to attachment.file.filename, url_for(attachment.file), class: "mr-3" %>
+        <%= link_to 'Delete', project_attachment_path(@project, attachment), data: { turbo_method: :delete }, class: "btn btn-sm btn-danger" %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2 class="mb-4">Discussion Threads</h2>
+  <% if current_user.admin? %>
+    <%= link_to 'New Discussion Thread', new_project_discussion_thread_path(@project), class: "btn btn-success mb-3" %>
+  <% end %>
+
+  <ul class="list-group">
+    <% @project.discussion_threads.each do |discussion_thread| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= link_to discussion_thread.title, project_discussion_thread_path(@project, discussion_thread), class: "mr-3" %>
+        <div>
+          <% if current_user.admin? %>
+            <%= link_to 'Edit', edit_project_discussion_thread_path(@project, discussion_thread), class: "btn btn-sm btn-secondary mr-2" %>
+            <%= link_to 'Delete', project_discussion_thread_path(@project, discussion_thread), data: { turbo_method: :delete }, class: "btn btn-sm btn-danger" %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<br/>
