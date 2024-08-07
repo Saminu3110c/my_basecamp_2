@@ -18,7 +18,6 @@ services:
     buildCommand: "./bin/render-build.sh"
     # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
     startCommand: "bundle exec rails server"
-    startCommand: bundle exec rails server -b 0.0.0.0
     
     envVars:
       - key: DATABASE_URL
