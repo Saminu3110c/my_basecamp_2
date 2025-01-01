@@ -68,15 +68,6 @@ To use the project, navigate to `http://localhost:3000` in your web browser afte
 - **Messages**: Users can post, edit, and delete messages within threads.
 
 
-### Example of creating a new project
-```bash
-rails generate scaffold Project name:string description:text
-```
-
-### Example of starting the server
-```bash
-rails server
-```
 
 ### The Core Team
 Saminu Isah - isah_s
